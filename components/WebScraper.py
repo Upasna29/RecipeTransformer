@@ -11,9 +11,3 @@ soup.prettify()
 def findElementsByClassName(element, className):
   return soup.findAll(element, { "class" : className })
 
-
-ingredients_raw = findElementsByClassName("span", "recipe-ingred_txt")
-
-ingredients = list(map(lambda x: x.getText(), ingredients_raw))
-
-print ingredients
