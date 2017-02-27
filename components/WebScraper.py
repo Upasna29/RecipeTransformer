@@ -1,8 +1,10 @@
 import urllib2
 from bs4 import BeautifulSoup
 
-url = 'http://allrecipes.com/recipe/219164/the-best-parmesan-chicken-bake/'
+# url = 'http://allrecipes.com/recipe/219164/the-best-parmesan-chicken-bake/'
+url = 'http://allrecipes.com/recipe/165190/spicy-vegan-potato-curry/'
 url_yahoo = 'http://yahoo.com'
+
 
 page = urllib2.urlopen(url).read()
 soup = BeautifulSoup(page, 'html.parser')
