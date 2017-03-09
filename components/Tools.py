@@ -70,6 +70,7 @@ def listTools(taggedSteps, ingredients):
 
 steps = getDirections()
 tagged = tagSteps(steps)
+print tagged
 tools = listTools(tagged, ['potatoes', 'water', 'vegetable', 'oil', 'onion',
                            'garlic', 'cumin', 'cayenne', 'pepper', 'curry',
                            'powder', 'garam', 'masala', 'ginger', 'salt',
