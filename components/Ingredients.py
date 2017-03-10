@@ -1,29 +1,29 @@
-# import WebScraper
+import WebScraper
 
-# ingredients_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
-# ingredients = list(map(lambda x: x.getText(), ingredients_raw))
+ingredients_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
+ingredients = list(map(lambda x: x.getText(), ingredients_raw))
 
-ingredients = [
-  u'4 potatoes, peeled and cubed', 
-  u'2 tablespoons vegetable oil', 
-  u'1 yellow onion, diced', 
-  u'3 cloves garlic, minced', 
-  u'2 teaspoons ground cumin', 
-  u'1 1/2 teaspoons cayenne pepper', 
-  u'4 teaspoons curry powder', 
-  u'4 teaspoons garam masala', 
-  u'1 (1 inch) piece fresh ginger root, peeled and minced', 
-  u'2 teaspoons salt', 
-  u'1 (14.5 ounce) can diced tomatoes', 
-  u'1 (15 ounce) can garbanzo beans (chickpeas), rinsed and drained', 
-  u'1 (15 ounce) can peas, drained', 
-  u'1 (14 ounce) can coconut milk', 
-  u'Add all ingredients to list', 
-  u'', 
-  u'Add all ingredients to list'
-]
+# ingredients = [
+#   u'4 potatoes, peeled and cubed', 
+#   u'2 tablespoons vegetable oil', 
+#   u'1 yellow onion, diced', 
+#   u'3 cloves garlic, minced', 
+#   u'2 teaspoons ground cumin', 
+#   u'1 1/2 teaspoons cayenne pepper', 
+#   u'4 teaspoons curry powder', 
+#   u'4 teaspoons garam masala', 
+#   u'1 (1 inch) piece fresh ginger root, peeled and minced', 
+#   u'2 teaspoons salt', 
+#   u'1 (14.5 ounce) can diced tomatoes', 
+#   u'1 (15 ounce) can garbanzo beans (chickpeas), rinsed and drained', 
+#   u'1 (15 ounce) can peas, drained', 
+#   u'1 (14 ounce) can coconut milk', 
+#   u'Add all ingredients to list', 
+#   u'', 
+#   u'Add all ingredients to list'
+# ]
 
-measurments = ['tablespoons', 'cloves', 'teaspoons', 'inch', 'ounce', 'piece', 'can']
+measurments = ['tablespoons', 'cloves', 'teaspoons', 'teaspoon', 'inch', 'ounce', 'piece', 'can', 'cup', 'cups']
 
 ## determineQuantity
 # string -> Arr of Str
@@ -79,6 +79,13 @@ def determineIngredients(instruction):
   print 'The ingredient is: ' + ingredient
   print 'The preperation is: ' + preperation if preperation else 'No preperation'
   print ''
+
+  return {
+    "name": ingredient,
+    "quantity": ' '.join(quantity) if isinstance(quantity, list) else ''.join(quantity),
+    "measurement": measurment if measurment else False,
+    "preperation": preperation if preperation else False
+  }
 
 
 def filterQuantity(quantities):
