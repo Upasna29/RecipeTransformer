@@ -1,6 +1,7 @@
 import nltk
 import re
 import WebScraper
+import Ingredients
 from pyStatParser.stat_parser import Parser
 
 # ingredients = ['potatoes', 'water', 'vegetable', 'oil', 'onion',
@@ -9,12 +10,40 @@ from pyStatParser.stat_parser import Parser
 #                            'tomatoes', 'garbanzo', 'beans', 'peas', 'coconut',
 #                            'milk']
 
-ingredients = ['olive', 'oil', 'cloves', 'garlic', 'hot', 'red', 'pepper', 'flakes', 'chicken', 'breast',
-               'marinara', 'sauce', 'basil', 'mozzarella', 'cheese', 'parmesan', 'croutons']
+# ingredients = ['olive', 'oil', 'cloves', 'garlic', 'hot', 'red', 'pepper', 'flakes', 'chicken', 'breast',
+            #    'marinara', 'sauce', 'basil', 'mozzarella', 'cheese', 'parmesan', 'croutons']
 
 utensils = ['pot', 'pan', 'skillet', 'sheet', 'dish', 'oven', 'rice cooker', 'pressure', 'cooker'
             'grater', 'whisk', 'spoon', 'fork', 'knife', 'tongs', 'spatula', 'peeler', 'thermometer', 'funnel',
             'knife', 'baking', 'dish']
+
+def getListIngredients():
+    '''
+    Outputs an array of the ingredient names.
+    Output: ['parmesan cheese', 'potatoes']
+    '''
+
+    ingredients_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
+    ingredientsList = list(map(lambda x: x.getText(), ingredients_raw))
+    allIngredients = []
+    for ingredient in ingredientsList:
+      allIngredients.append(Ingredients.determineIngredients(ingredient)["name"])
+
+    return allIngredients
+
+def ingredientsSeparated(allIngredients):
+    '''
+    Outputs an array of the ingredient names broken down by whitespace, if any.
+    Output: ['parmesan', 'cheese', 'potatoes']
+    '''
+    separatedIngredients = []
+    for ingredient in allIngredients:
+        separatedIngredients.extend(ingredient.split())
+
+    return separatedIngredients
+
+allIngredients = getListIngredients()
+ingredients = ingredientsSeparated(allIngredients)
 
 def getDirections():
     '''
@@ -104,6 +133,8 @@ def stat_parse(steps):
                 step_ing = [x for x in rest if x.lower() in ingredients]
                 dict_steps[idx]['ingredients'] = step_ing
                 pos_rest = child.pos()[1:]
+
+    print dict_steps
 
 
 
