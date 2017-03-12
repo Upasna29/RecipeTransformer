@@ -113,6 +113,16 @@ def steps():
 
         print '\n'
 
-steps()
+def methods():
+    '''
+    From command line input, print all tools involved for recipe
+    :Output: Tools found in recipe
+    '''
+    steps = getDirections()
+    dict_steps = stat_parse(steps)
+    methods = []
+    for step in dict_steps:
+        methods = methods + step['method']
+    print 'Methods: ', ', '.join(methods)
 
 
