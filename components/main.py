@@ -17,7 +17,7 @@ def commandLineIntro():
     )
 
   try:
-    if float(user_input) < 0 or float(user_input) > 7:
+    if float(user_input) < 0 or float(user_input) > 9:
       print "Error, number out of range"
       return commandLinePrompt()
   except:
