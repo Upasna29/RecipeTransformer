@@ -1,4 +1,4 @@
-import Ingredients, ServingSizeTransform, Tools
+import Ingredients, ServingSizeTransform, Tools, Transformations
 
 def commandLineIntro():
   user_input = raw_input(
@@ -9,8 +9,10 @@ def commandLineIntro():
     "Print Steps(3) \n" +
     "Transform Serving Size(4) \n" +
     "Transform to healthier recipe(5) \n" +
-    "Transform to vegetarian recipe(6) \n" +
-    "Type 7 to quit \n"
+    "Transform to less healthy recipe(6) \n" +
+    "Transform to vegetarian recipe(7) \n" +
+    "Transform to non-vegetarian recipe(8) \n" +
+    "Type 9 to quit \n"
 
     )
 
@@ -42,9 +44,22 @@ def commandLinePrompt():
     ServingSizeTransform.main()
     user_input = commandLinePrompt()
 
-  # elif user_input == 5:
-
-  # elif user_input == 6:
+  # Healthier
+  elif user_input == 5:
+    Transformations.main(3)
+    user_input = commandLinePrompt()
+  # Less Healthy
+  elif user_input == 6:
+    Transformations.main(4)
+    user_input = commandLinePrompt()
+  # Vegetarian
   elif user_input == 7:
+    Transformations.main(1)
+    user_input = commandLinePrompt()
+  # Non-Vegetarian
+  elif user_input == 8:
+    Transformations.main(2)
+    user_input = commandLinePrompt()
+  elif user_input == 9:
     return
 commandLinePrompt()
