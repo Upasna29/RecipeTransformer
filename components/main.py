@@ -11,6 +11,7 @@ def commandLineIntro():
     "Transform to healthier recipe(5) \n" +
     "Transform to vegetarian recipe(6) \n" +
     "Type 7 to quit \n"
+
     )
 
   try:
@@ -22,15 +23,16 @@ def commandLineIntro():
     return commandLinePrompt()
   return user_input
 
-def commandLinePrompt(): 
+def commandLinePrompt():
   user_input = float(commandLineIntro())
 
   #Ingredients
   if user_input == 0:
     Ingredients.main()
     user_input = commandLinePrompt()
-  # elif user_input == 1:
-    # execfile('./components/Tools.py')
+  elif user_input == 1:
+     Tools.main()
+     user_input = commandLinePrompt()
 
   # elif user_input == 2:
 
@@ -42,7 +44,7 @@ def commandLinePrompt():
 
   # elif user_input == 5:
 
-  # elif user_input == 6:    
-  elif user_input == 7: 
+  # elif user_input == 6:
+  elif user_input == 7:
     return
 commandLinePrompt()
