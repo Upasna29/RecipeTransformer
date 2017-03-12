@@ -1,4 +1,4 @@
-import Ingredients, ServingSizeTransform, Tools, Transformations
+import Ingredients, ServingSizeTransform, Steps, Transformations
 
 def commandLineIntro():
   user_input = raw_input(
@@ -17,7 +17,7 @@ def commandLineIntro():
     )
 
   try:
-    if float(user_input) < 0 or float(user_input) > 7:
+    if float(user_input) < 0 or float(user_input) > 9:
       print "Error, number out of range"
       return commandLinePrompt()
   except:
@@ -33,7 +33,7 @@ def commandLinePrompt():
     Ingredients.main()
     user_input = commandLinePrompt()
   elif user_input == 1:
-     Tools.main()
+     Steps.steps()
      user_input = commandLinePrompt()
 
   # elif user_input == 2:
