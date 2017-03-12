@@ -1,4 +1,4 @@
-# import Tools
+import Tools
 import random
 
 meats = ['chicken', 'pork', 'beef', 'steak', 'turkey', 'ham', 'lamb', 'rabbit', 'duck', 'goose']
@@ -17,8 +17,8 @@ healthySubstitutes = {}
 # unhealthySubstitues    healthy to unhealthy?
 unhealthySubstitues = {}
 
-# ingredients = Tools.getListIngredients()
-# steps = Tools.getDirections()
+ingredients = Tools.getListIngredients()
+steps = Tools.getDirections()
 
 
 def findIngredientSubstitution(ingredients, num):
@@ -38,13 +38,10 @@ def findIngredientSubstitution(ingredients, num):
     ingredientSubs = {}
     for ingredient in ingredients:
         # 1: To vegan/vegetarian
-        print 'Ingredient: ', ingredient
         temp = ingredient.split()
-        print 'Words in ingredient: ', temp
         if num == 1:
             for word in temp:
                 if word in meatSubstitutes:
-                    print 'I found chicken'
                     idx = random.randint(0, len(meatSubstitutes[word])-1)
                     substitute = meatSubstitutes[word][idx]
                     ingredientSubs[ingredient] = substitute
@@ -109,8 +106,11 @@ def makeSubstitutions(steps, ingredientSubs):
 
     print steps
 
-tempIngredients = ['olive oil', 'garlic', 'crushed red pepper flakes', 'chicken breasts', 'prepared marinara sauce', 'chopped fresh basil', 'shredded mozzarella cheese', 'grated Parmesan cheese', 'garlic croutons', 'Add all ingredients to list', '', 'Add all ingredients to list']
-tempSteps = ['Preheat oven to 350 degrees F (175 degrees C)', 'Coat the bottom of a 9x13 inch casserole dish with olive oil, and sprinkle with garlic and hot red pepper flakes', 'Arrange the chicken breasts in bottom of the dish, and pour marinara sauce over chicken', 'Sprinkle basil over marinara sauce, and top with half the mozzarella cheese, followed by half the Parmesan cheese', 'Sprinkle on the croutons, then top with the remaining mozzarella cheese and remaining Parmesan cheese', 'Bake in preheated oven until cheese and croutons are golden brown and the chicken is no longer pink inside, about 35 minutes to an hour, depending on the shape and thickness of your chicken breasts', 'An instant-read thermometer inserted into the thickest part of a chicken breast should read at least 160 degrees F (70 degrees C)']
-ingredientSubs = findIngredientSubstitution(tempIngredients, 1)
+# tempIngredients = ['olive oil', 'garlic', 'crushed red pepper flakes', 'chicken breasts', 'prepared marinara sauce', 'chopped fresh basil', 'shredded mozzarella cheese', 'grated Parmesan cheese', 'garlic croutons', 'Add all ingredients to list', '', 'Add all ingredients to list']
+# tempSteps = ['Preheat oven to 350 degrees F (175 degrees C)', 'Coat the bottom of a 9x13 inch casserole dish with olive oil, and sprinkle with garlic and hot red pepper flakes', 'Arrange the chicken breasts in bottom of the dish, and pour marinara sauce over chicken', 'Sprinkle basil over marinara sauce, and top with half the mozzarella cheese, followed by half the Parmesan cheese', 'Sprinkle on the croutons, then top with the remaining mozzarella cheese and remaining Parmesan cheese', 'Bake in preheated oven until cheese and croutons are golden brown and the chicken is no longer pink inside, about 35 minutes to an hour, depending on the shape and thickness of your chicken breasts', 'An instant-read thermometer inserted into the thickest part of a chicken breast should read at least 160 degrees F (70 degrees C)']
+# ingredientSubs = findIngredientSubstitution(tempIngredients, 1)
+# print ingredientSubs
+# makeSubstitutions(tempSteps, ingredientSubs)
+ingredientSubs = findIngredientSubstitution(ingredients, 1)
 print ingredientSubs
-makeSubstitutions(tempSteps, ingredientSubs)
+makeSubstitutions(steps, ingredientSubs)
