@@ -178,9 +178,11 @@ def stat_parse(steps):
 #     methods = [x for x in not_ingredients if x.lower() not in utensils]
 #     return methods
 
-steps = getDirections()
-stat_parse(steps)
 
+
+def main():
+    steps = getDirections()
+    stat_parse(steps)
 # print getMethods(steps, ingredients)
 # tagged = tagSteps(steps)
 # tools = listTools(tagged, ingredients)

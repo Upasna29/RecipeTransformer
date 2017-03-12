@@ -1,4 +1,4 @@
-from components import Ingredients, ServingSizeTransform
+import Ingredients, ServingSizeTransform, Tools
 
 def commandLineIntro():
   user_input = raw_input(
@@ -23,14 +23,16 @@ def commandLineIntro():
     return commandLinePrompt()
   return user_input
 
-def commandLinePrompt(): 
+def commandLinePrompt():
   user_input = float(commandLineIntro())
 
   #Ingredients
   if user_input == 0:
     Ingredients.main()
     user_input = commandLinePrompt()
-  # elif user_input == 1:
+  elif user_input == 1:
+     Tools.main()
+     user_input = commandLinePrompt()
 
   # elif user_input == 2:
 
@@ -42,7 +44,7 @@ def commandLinePrompt():
 
   # elif user_input == 5:
 
-  # elif user_input == 6:    
-  elif user_input == 7: 
+  # elif user_input == 6:
+  elif user_input == 7:
     return
 commandLinePrompt()
