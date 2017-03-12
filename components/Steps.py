@@ -12,34 +12,6 @@ utensils = ['pot', 'pan', 'skillet', 'sheet', 'dish', 'oven', 'rice cooker', 'pr
             'bowl', 'grill', 'nutcracker', 'ladle', 'cutter', 'whisk', 'scoop', 'griddle', 'cleaver', 'masher',
             'colander', 'dutch']
 
-def getListIngredients():
-    '''
-    Outputs an array of the ingredient names.
-    Output: ['parmesan cheese', 'potatoes']
-    '''
-
-    ingredients_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
-    ingredientsList = list(map(lambda x: x.getText(), ingredients_raw))
-    allIngredients = []
-    for ingredient in ingredientsList:
-      allIngredients.append(Ingredients.determineIngredients(ingredient)["name"])
-
-    return allIngredients
-
-def ingredientsSeparated(allIngredients):
-    '''
-    Outputs an array of the ingredient names broken down by whitespace, if any.
-    Output: ['parmesan', 'cheese', 'potatoes']
-    '''
-    separatedIngredients = []
-    for ingredient in allIngredients:
-        separatedIngredients.extend(ingredient.split())
-
-    return separatedIngredients
-
-allIngredients = getListIngredients()
-ingredients = ingredientsSeparated(allIngredients)
-
 def getDirections():
     '''
     Pulls direction from recipe defined in WebScraper.py and returns a flat list of all "steps",
@@ -53,26 +25,46 @@ def getDirections():
 
     nested_directions = [re.split('\.|;', direction) for direction in directions]
     steps = [step.lstrip() for direction in nested_directions for step in direction if step]
-    return steps
+
+    ingredients_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
+    ingredients_raw = list(map(lambda x: x.getText(), ingredients_raw))
+    ingredients = []
+    for ingredient in ingredients_raw:
+        if ingredient == 'Add all ingredients to list':
+            pass
+        else:
+            ingredients.append(Ingredients.determineIngredients(ingredient)["name"])
 
 
-def stat_parse(steps):
+    return steps, ingredients
+
+
+def stat_parse(steps, ingredients):
     stop_words = ['is', 'and', 'to', 'time']
 
     vp_steps = []
+
+    separatedIngredients = []
+    for ingredient in ingredients:
+        ingredient = ingredient.replace('(' ,'').replace(')', '')
+        separatedIngredients.extend(ingredient.split())
 
     dict_steps = []
     for step in steps:
         # Extracting steps from each step, and putting into dictionary describing step
         step_dict = {}
-        step = 'You ' + step[0].lower() + step[1:]
+        if step[0:2] != 'In' and step[0:4] != 'With':
+            step = 'You ' + step[0].lower() + step[1:]
         split_steps = step.split(' ')
         time_idxs = [idx for idx, word in enumerate(split_steps) if word in ['second', 'seconds', 'minute', 'minutes', 'hour', 'hours']]
-        times = [split_steps[idx - 1] + split_steps[idx] for idx in time_idxs]
+        times = [split_steps[idx - 1] + ' ' + split_steps[idx] for idx in time_idxs]
         step_dict['time'] = times
 
         tools = [x for x in split_steps if x in utensils]
         step_dict['tools'] = tools
+
+        step_ing = [x for x in split_steps if x in separatedIngredients]
+        step_dict['ingredients'] = list(set(step_ing))
 
         # Parsing sentence structure from each step and putting in array steps
         parser = Parser()
@@ -92,16 +84,9 @@ def stat_parse(steps):
 
     for idx, vp_step in enumerate(vp_steps):
         for child in vp_step:
-            print child
-            if child.label() == 'VB' or child.label == 'VBP':
+            if child.label() == 'VB' or child.label() == 'VBP':
                 method = child.leaves()[0]
-                dict_steps[idx]['method'] = method
-            else:
-                rest = child.leaves()[1:]
-                rest = [x for x in rest if x not in stop_words]
-                step_ing = [x for x in rest if x.lower() in ingredients]
-                dict_steps[idx]['ingredients'] = list(set(step_ing))
-                pos_rest = child.pos()[1:]
+                dict_steps[idx]['method'] = [method]
 
     return dict_steps
 
@@ -118,12 +103,16 @@ def tools():
     print 'Tools: ', ', '.join(tools)
 
 def steps():
-    steps = getDirections()
-    dict_steps = stat_parse(steps)
-    print dict_steps
+    steps, ingredients = getDirections()
+    dict_steps = stat_parse(steps, ingredients)
+    for i, step in enumerate(dict_steps):
+        print 'Step ', str(i)
+        for component in step:
+            if step[component]:
+                print component, ": ", ' '.join(step[component])
 
+        print '\n'
 
-
-
+steps()
 
 
