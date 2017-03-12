@@ -1,4 +1,4 @@
-from components import Ingredients, Transform
+from components import Ingredients, ServingSizeTransform
 
 def commandLineIntro():
   user_input = raw_input(
@@ -37,7 +37,7 @@ def commandLinePrompt():
   # elif user_input == 3:
 
   elif user_input == 4:
-    Transform.main()
+    ServingSizeTransform.main()
     user_input = commandLinePrompt()
 
   # elif user_input == 5:
