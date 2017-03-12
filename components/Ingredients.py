@@ -2,7 +2,6 @@ import WebScraper
 
 ingredients_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
 ingredients = list(map(lambda x: x.getText(), ingredients_raw))
-
 # ingredients = [
 #   u'4 potatoes, peeled and cubed', 
 #   u'2 tablespoons vegetable oil', 
@@ -23,7 +22,7 @@ ingredients = list(map(lambda x: x.getText(), ingredients_raw))
 #   u'Add all ingredients to list'
 # ]
 
-measurments = ['tablespoons', 'cloves', 'teaspoons', 'teaspoon', 'inch', 'ounce', 'piece', 'can', 'cup', 'cups']
+measurments = ['tablespoons', 'cloves', 'teaspoons', 'teaspoon', 'inch', 'ounce', 'piece', 'can', 'cup', 'cups', 'package']
 
 ## determineQuantity
 # string -> Arr of Str
@@ -36,16 +35,9 @@ def determineIngredients(instruction):
   quantity = []
   measurment = []
   preperation = []
-  
+  original_text = instruction
   words = instruction.split(' ')
-  print instruction
 
-  # split 
-  # quantity_and_measurement, ingredient_and_preperation = parseIngredients(words)
-  # print quantity_and_measurement
-  # print ingredient_and_preperation
-
-  # extract measurments
   for word in words:
     if word in measurments:
       if not measurment:
@@ -74,17 +66,12 @@ def determineIngredients(instruction):
   if ',' in ingredient:
     ingredient = ingredient.replace(',', '')
 
-  print 'The quantity is: ' + ' '.join(quantity) if isinstance(quantity, list) else 'The quantity is: ' + ''.join(quantity)
-  print 'The measurment is: ' + measurment if measurment else 'No measurment'
-  print 'The ingredient is: ' + ingredient
-  print 'The preperation is: ' + preperation if preperation else 'No preperation'
-  print ''
-
   return {
     "name": ingredient,
     "quantity": ' '.join(quantity) if isinstance(quantity, list) else ''.join(quantity),
     "measurement": measurment if measurment else False,
-    "preperation": preperation if preperation else False
+    "preperation": preperation if preperation else False,
+    "original": original_text
   }
 
 
@@ -136,15 +123,18 @@ def parseIngredients(ingredient):
       return ingredient[:(i+2)], ingredient[(i+2):]
     elif num_there(ingredient[i]):
       number_index = i
-  print ingredient[:(number_index+2)], ingredient[(number_index+2):]
   return ingredient[:(number_index+2)], ingredient[(number_index+2):]
 
 
+def main():
+  instructions_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
+  instructions = list(map(lambda x: x.getText(), instructions_raw))
 
-
-
-
-for ingredient in ingredients:
-  print determineIngredients(ingredient)
-
-
+  for instruction in instructions:
+    data = determineIngredients(instruction)
+    if data['quantity']:
+      print instruction
+      print 'Name: ' + data['name']
+      print 'Quantity: ' + data['quantity']
+      print 'Measurment: ' + data['measurement'] if data['measurement'] else 'Measurment: Error parsing measurement data'
+      print 'Preperation: ' + data['preperation'] + '\n' if data['preperation'] else 'Preperation: No preperation data \n'
