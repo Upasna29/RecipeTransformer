@@ -1,4 +1,4 @@
-import Ingredients, ServingSizeTransform, Tools, Transformations
+import Ingredients, ServingSizeTransform, Steps, Transformations
 
 def commandLineIntro():
   user_input = raw_input(
@@ -33,7 +33,7 @@ def commandLinePrompt():
     Ingredients.main()
     user_input = commandLinePrompt()
   elif user_input == 1:
-     Tools.main()
+     Steps.steps()
      user_input = commandLinePrompt()
 
   # elif user_input == 2:

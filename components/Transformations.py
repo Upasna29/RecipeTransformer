@@ -1,4 +1,4 @@
-import Tools, WebScraper, Ingredients
+import Steps, WebScraper, Ingredients
 import random
 
 
@@ -20,8 +20,8 @@ healthySubstitutes = {}
 # unhealthySubstitues    healthy to unhealthy?
 unhealthySubstitues = {}
 
-ingredients = Tools.getListIngredients()
-steps = Tools.getDirections()
+ingredients = Steps.getListIngredients()
+steps = Steps.getDirections()
 
 
 def findIngredientSubstitution(ingredients, num):
