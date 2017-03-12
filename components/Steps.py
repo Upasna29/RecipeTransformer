@@ -105,22 +105,25 @@ def stat_parse(steps):
 
     return dict_steps
 
-def tools(dict_steps):
+def tools():
     '''
-    Given parsed recipe steps, return all tools involved for recipe
-    :param dict_steps: Dictionary representation of recipe steps as returned by stat_parse
-    :return: List of tools found in recipe.
+    From command line input, print all tools involved for recipe
+    :Output: Tools found in recipe
     '''
+    steps = getDirections()
+    dict_steps = stat_parse(steps)
     tools = []
     for step in dict_steps:
         tools = tools + step['tools']
-    return tools
-
-
+    print 'Tools: ', ', '.join(tools)
 
 def steps():
     steps = getDirections()
     dict_steps = stat_parse(steps)
+    print dict_steps
+
+
+
 
 
 
