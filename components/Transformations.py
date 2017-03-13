@@ -22,7 +22,7 @@ healthySubstitutes = {'sugar': ['brown sugar', 'honey', 'cinnamon', 'vanilla'], 
 # unhealthySubstitues    healthy to unhealthy?
 unhealthySubstitutes = {'olive oil': ['butter'], 'whole-wheat pasta': ['pasta'], 'unsweetened apple sauce': ['butter'], 'flour': ['corn'], 'vanilla': ['sugar'], 'zucchini pasta': ['pasta'], 'almond milk': ['milk'], 'cucumbers': ['pickles'], 'honey': ['sugar'], 'cherry tomatoes': ['olives'], 'cinnamon': ['sugar'], 'fat free milk': ['milk'], 'mashed fresh berries': ['jelly'], 'reduced fat spreads': ['mayonnaise'], 'soy milk': ['milk'], 'mashed banana': ['butter'], 'brown sugar': ['sugar']}
 
-americanSubstitutes = {'olive oil': ['butter'], 'whole-wheat pasta': ['macaroni'],'cucumbers': ['pickles'], 'honey': ['sugar'], "tofu": meats, "mushroom": meats, "eggplant": meats, "quinoa": meats, "soy": meats, "ham": ['hamburger', 'hot dog'], 'fat free milk': ['milk'], 'mashed fresh berries': ['jelly'], 'sour cream': ['mayonnaise'], 'soy milk': ['milk'], 'mashed banana': ['butter'], 'brown sugar': ['sugar'] }
+americanSubstitutes = {"sausage":['hot dog', "hamburger"],'olive oil': ['butter'], 'whole-wheat pasta': ['macaroni'],'cucumbers': ['pickles'], 'honey': ['sugar'], "tofu": meats, "mushroom": meats, "eggplant": meats, "quinoa": meats, "soy": meats, "ham": ['hamburger', 'hot dog'], 'fat free milk': ['milk'], 'mashed fresh berries': ['jelly'], 'sour cream': ['mayonnaise'], 'soy milk': ['milk'], 'mashed banana': ['butter'], 'brown sugar': ['sugar'] }
 
 # ingredients = Steps.getListIngredients()
 
