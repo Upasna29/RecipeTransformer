@@ -20,8 +20,8 @@ healthySubstitutes = {}
 # unhealthySubstitues    healthy to unhealthy?
 unhealthySubstitues = {}
 
-ingredients = Steps.getListIngredients()
-steps = Steps.getDirections()
+# ingredients = Steps.getListIngredients()
+steps, ingredients = Steps.getDirections()
 
 
 def findIngredientSubstitution(ingredients, num):

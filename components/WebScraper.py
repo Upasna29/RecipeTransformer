@@ -2,12 +2,12 @@ import urllib2
 from bs4 import BeautifulSoup
 
 # url = 'http://allrecipes.com/recipe/219164/the-best-parmesan-chicken-bake/'
-url = 'http://allrecipes.com/recipe/165190/spicy-vegan-potato-curry/'
+# url = 'http://allrecipes.com/recipe/165190/spicy-vegan-potato-curry/'
 # url = 'http://allrecipes.com/recipe/219164/the-best-parmesan-chicken-bake/'
 # url = 'http://allrecipes.com/recipe/24685/blue-cheese-burgers/'
 # url = 'http://allrecipes.com/recipe/236311/baked-eggplant/'
-url_yahoo = 'http://yahoo.com'
-
+# url = 'http://allrecipes.com/recipe/19291/sausage-pasta'
+url = 'http://allrecipes.com/recipe/50233/black-pepper-beef-and-cabbage-stir-fry/'
 
 
 page = urllib2.urlopen(url).read()

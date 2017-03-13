@@ -33,13 +33,14 @@ def commandLinePrompt():
     Ingredients.main()
     user_input = commandLinePrompt()
   elif user_input == 1:
-     Steps.steps()
-     user_input = commandLinePrompt()
-
-  # elif user_input == 2:
-
-  # elif user_input == 3:
-
+    Steps.tools()
+    user_input = commandLinePrompt()
+  elif user_input == 2:
+    Steps.methods()
+    user_input = commandLinePrompt()
+  elif user_input == 3:
+    Steps.steps()
+    user_input = commandLinePrompt()
   elif user_input == 4:
     ServingSizeTransform.main()
     user_input = commandLinePrompt()

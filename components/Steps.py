@@ -90,21 +90,29 @@ def stat_parse(steps, ingredients):
 
     return dict_steps
 
+def remove_duplicates(seq):
+   # not order preserving
+   set = {}
+   map(set.__setitem__, seq, [])
+   return set.keys()
+
 def tools():
     '''
     From command line input, print all tools involved for recipe
     :Output: Tools found in recipe
     '''
-    steps = getDirections()
-    dict_steps = stat_parse(steps)
+    steps, ingredients = getDirections()
+    dict_steps = stat_parse(steps, ingredients)
     tools = []
     for step in dict_steps:
         tools = tools + step['tools']
+    tools = remove_duplicates(tools)
     print 'Tools: ', ', '.join(tools)
 
 def steps():
     steps, ingredients = getDirections()
     dict_steps = stat_parse(steps, ingredients)
+    print dict_steps
     for i, step in enumerate(dict_steps):
         print 'Step ', str(i)
         for component in step:
@@ -118,11 +126,15 @@ def methods():
     From command line input, print all tools involved for recipe
     :Output: Tools found in recipe
     '''
-    steps = getDirections()
-    dict_steps = stat_parse(steps)
+    steps, ingredients = getDirections()
+    dict_steps = stat_parse(steps, ingredients)
     methods = []
     for step in dict_steps:
-        methods = methods + step['method']
+        try:
+            methods = methods + step['method']
+        except:
+            continue
+    methods = remove_duplicates(methods)
     print 'Methods: ', ', '.join(methods)
 
 

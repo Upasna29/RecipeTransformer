@@ -22,7 +22,23 @@ ingredients = list(map(lambda x: x.getText(), ingredients_raw))
 #   u'Add all ingredients to list'
 # ]
 
-measurments = ['tablespoons', 'ounces', 'cloves', 'teaspoons', 'teaspoon', 'inch', 'ounce', 'piece', 'can', 'cup', 'cups', 'package', 'pounds']
+measurments = [
+  'tablespoons', 
+  'tablespoon', 
+  'ounces', 
+  'cloves', 
+  'teaspoons', 
+  'teaspoon', 
+  'inch', 
+  'ounce', 
+  'piece', 
+  'can', 
+  'cup', 
+  'cups', 
+  'package', 
+  'pounds', 
+  'pound'
+]
 
 ## determineQuantity
 # string -> Arr of Str
