@@ -112,6 +112,7 @@ def tools(directions, ingredients):
 def steps(directions, ingredients):
     steps, ingredients = getDirections(directions, ingredients)
     dict_steps = stat_parse(steps, ingredients)
+    print '\nComplex Model of directions: '
     for i, step in enumerate(dict_steps):
         print 'Step ', str(i)
         for component in step:
@@ -119,6 +120,10 @@ def steps(directions, ingredients):
                 print component, ": ", ' '.join(step[component])
 
         print '\n'
+    print '\nDirections: '
+    for i, step in enumerate(steps):
+        if step:
+            print str(i+1)+'. ', step
 
 def methods(directions, ingredients):
     '''
