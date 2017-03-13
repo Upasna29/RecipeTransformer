@@ -21,11 +21,12 @@ def commandLineIntro(current_steps, current_ingredients):
     "Transform to less healthy recipe(6) \n" +
     "Transform to vegetarian recipe(7) \n" +
     "Transform to non-vegetarian recipe(8) \n" +
+    "Transform to American recipe(10) \n" +
     "Type 9 to quit \n"
     )
 
   try:
-    if float(user_input) < 0 or float(user_input) > 9:
+    if float(user_input) < 0 or float(user_input) > 10:
       print "Error, number out of range"
       return commandLinePrompt(current_steps, current_ingredients)
   except:
@@ -71,5 +72,9 @@ def commandLinePrompt(current_steps, current_ingredients):
     user_input = commandLinePrompt(current_steps, current_ingredients)
   elif user_input == 9:
     return
+  elif user_input == 10:
+    current_ingredients, current_steps = Transformations.main(5, current_steps, current_ingredients)
+    user_input = commandLinePrompt(current_steps, current_ingredients)
+
 
 commandLinePrompt(current_steps, current_ingredients)

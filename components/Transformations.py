@@ -22,6 +22,8 @@ healthySubstitutes = {'sugar': ['brown sugar', 'honey', 'cinnamon', 'vanilla'], 
 # unhealthySubstitues    healthy to unhealthy?
 unhealthySubstitutes = {'olive oil': ['butter'], 'whole-wheat pasta': ['pasta'], 'unsweetened apple sauce': ['butter'], 'flour': ['corn'], 'vanilla': ['sugar'], 'zucchini pasta': ['pasta'], 'almond milk': ['milk'], 'cucumbers': ['pickles'], 'honey': ['sugar'], 'cherry tomatoes': ['olives'], 'cinnamon': ['sugar'], 'fat free milk': ['milk'], 'mashed fresh berries': ['jelly'], 'reduced fat spreads': ['mayonnaise'], 'soy milk': ['milk'], 'mashed banana': ['butter'], 'brown sugar': ['sugar']}
 
+americanSubstitutes = {'olive oil': ['butter'], 'whole-wheat pasta': ['macaroni'],'cucumbers': ['pickles'], 'honey': ['sugar'], "tofu": meats, "mushroom": meats, "eggplant": meats, "quinoa": meats, "soy": meats, "ham": ['hamburger', 'hot dog'], 'fat free milk': ['milk'], 'mashed fresh berries': ['jelly'], 'sour cream': ['mayonnaise'], 'soy milk': ['milk'], 'mashed banana': ['butter'], 'brown sugar': ['sugar'] }
+
 # ingredients = Steps.getListIngredients()
 
 
@@ -43,6 +45,11 @@ def findIngredientSubstitution(ingredients, num):
     ingredientSubs = {}
     for ingredient in ingredients:
         # 1: To vegan/vegetarian
+        bigrams = [b for l in [ingredient] for b in zip(l.split(" ")[:-1], l.split(" ")[1:])]
+        tempbigrams = []
+        for each in bigrams:
+            tempbigrams.append(each[0]+ " "+ each[1])
+
         temp = ingredient.split()
         if num == 1:
             for word in temp:
@@ -52,7 +59,7 @@ def findIngredientSubstitution(ingredients, num):
                     ingredientSubs[ingredient] = substitute
                     ingredientSubs[word] = substitute
                     break
-                if word in dairySubstitutes:
+                elif word in dairySubstitutes:
                     idx = random.randint(0, len(dairySubstitutes[word])-1)
                     substitute = dairySubstitutes[word][idx]
                     ingredientSubs[ingredient] = substitute
@@ -69,7 +76,7 @@ def findIngredientSubstitution(ingredients, num):
                     ingredientSubs[word] = substitute
                     break
 
-        # 3: To healthy
+        # 3: To unhealthy
         if num == 4:
             for word in temp:
                 if word in unhealthySubstitutes:
@@ -78,13 +85,37 @@ def findIngredientSubstitution(ingredients, num):
                     ingredientSubs[ingredient] = substitute
                     ingredientSubs[word] = substitute
                     break
+            for word in tempbigrams:
+                if word in unhealthySubstitutes:
+                    idx = random.randint(0, len(unhealthySubstitutes[word])-1)
+                    substitute = unhealthySubstitutes[word][idx]
+                    ingredientSubs[ingredient] = substitute
+                    ingredientSubs[word] = substitute
+                    break
 
-        # 4: To unhealthy
+        # 4: To healthy
         if num == 3:
             for word in temp:
                 if word in healthySubstitutes:
                     idx = random.randint(0, len(healthySubstitutes[word])-1)
                     substitute = healthySubstitutes[word][idx]
+                    ingredientSubs[ingredient] = substitute
+                    ingredientSubs[word] = substitute
+                    break
+
+        #5: To American
+        if num == 5:
+            for word in temp:
+                if word in americanSubstitutes:
+                    idx = random.randint(0, len(americanSubstitutes[word])-1)
+                    substitute = americanSubstitutes[word][idx]
+                    ingredientSubs[ingredient] = substitute
+                    ingredientSubs[word] = substitute
+                    break
+            for word in tempbigrams:
+                if word in americanSubstitutes:
+                    idx = random.randint(0, len(americanSubstitutes[word])-1)
+                    substitute = americanSubstitutes[word][idx]
                     ingredientSubs[ingredient] = substitute
                     ingredientSubs[word] = substitute
                     break
@@ -116,7 +147,19 @@ def makeSubstitutionInInstructions(instructions, ingredientSubs):
     new_instructions = []
 
     for instruction in instructions:
+        ins_bigrams = [b for l in [instruction] for b in zip(l.split(" ")[:-1], l.split(" ")[1:])]
+        ins_tempbigrams = []
+        for each in ins_bigrams:
+            ins_tempbigrams.append(each[0]+ " "+ each[1])
+
         instruction = instruction.split(' ')
+
+        for i,each in enumerate(ins_tempbigrams):
+            if each in ingredientSubs:
+                instruction[i] = ingredientSubs[each]
+                del instruction[i+1]
+
+
         for i in range(0, len(instruction)):
             for ingredient in ingredientSubs:
                 if ingredient == instruction[i]:
