@@ -1,7 +1,7 @@
 import Ingredients, ServingSizeTransform, Steps, Transformations, WebScraper
-
-ingredients_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
-directions_raw = WebScraper.findElementsByClassName("span", "recipe-directions__list--item")
+url = 'http://allrecipes.com/recipe/19291/sausage-pasta'
+ingredients_raw = WebScraper.findElementsByClassName(url, "span", "recipe-ingred_txt")
+directions_raw = WebScraper.findElementsByClassName(url, "span", "recipe-directions__list--item")
 len_directs = len(directions_raw)
 directions_raw = directions_raw[:len_directs - 1]
 
