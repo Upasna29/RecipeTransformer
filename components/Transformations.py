@@ -21,7 +21,7 @@ healthySubstitutes = {}
 unhealthySubstitues = {}
 
 # ingredients = Steps.getListIngredients()
-steps, ingredients = Steps.getDirections()
+
 
 
 def findIngredientSubstitution(ingredients, num):
@@ -132,14 +132,15 @@ def makeSubstitutionInInstructions(instructions, ingredientSubs):
 # print ingredientSubs
 # makeSubstitutionInInstructions(steps, ingredientSubs)
 
-def main(i):
-    instructions_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
-    instructions = list(map(lambda x: x.getText(), instructions_raw))
-    
+def main(i, steps, instructions):
+    # instructions_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
+    # instructions = list(map(lambda x: x.getText(), instructions_raw))
+    steps, ingredients = Steps.getDirections(steps, instructions)
     ingredientSubs = findIngredientSubstitution(ingredients, i) 
     new_recipe = makeSubstitutionInInstructions(instructions, ingredientSubs)
 
     print 'Original Recipe'
+    new_instructions = []
     for instruction in instructions:
         old_step = Ingredients.determineIngredients(instruction)
 
@@ -157,5 +158,7 @@ def main(i):
             continue
         else:
             print old_step['original']
+            new_instructions.append(old_step['original'])
+    return new_instructions
 
 

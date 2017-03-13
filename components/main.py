@@ -1,6 +1,15 @@
-import Ingredients, ServingSizeTransform, Steps, Transformations
+import Ingredients, ServingSizeTransform, Steps, Transformations, WebScraper
 
-def commandLineIntro():
+ingredients_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
+directions_raw = WebScraper.findElementsByClassName("span", "recipe-directions__list--item")
+len_directs = len(directions_raw)
+directions_raw = directions_raw[:len_directs - 1]
+
+current_ingredients = list(map(lambda x: x.getText(), ingredients_raw))
+current_steps = list(map(lambda x: x.getText(), directions_raw))
+
+print current_ingredients
+def commandLineIntro(current_steps, current_ingredients):
   user_input = raw_input(
     "Welcome to our wonderful recipe transformation program! What would you like to do? \n \n" +
     "Print Ingredients(0) \n" +
@@ -13,54 +22,54 @@ def commandLineIntro():
     "Transform to vegetarian recipe(7) \n" +
     "Transform to non-vegetarian recipe(8) \n" +
     "Type 9 to quit \n"
-
     )
 
   try:
     if float(user_input) < 0 or float(user_input) > 9:
       print "Error, number out of range"
-      return commandLinePrompt()
+      return commandLinePrompt(current_steps, current_ingredients)
   except:
     print "Invalid input"
-    return commandLinePrompt()
+    return commandLinePrompt(current_steps, current_ingredients)
   return user_input
 
-def commandLinePrompt():
-  user_input = float(commandLineIntro())
+def commandLinePrompt(current_steps, current_ingredients):
+  user_input = float(commandLineIntro(current_steps, current_ingredients))
 
   #Ingredients
   if user_input == 0:
-    Ingredients.main()
-    user_input = commandLinePrompt()
+    Ingredients.main(current_ingredients)
+    user_input = commandLinePrompt(current_steps, current_ingredients)
   elif user_input == 1:
-    Steps.tools()
-    user_input = commandLinePrompt()
+    Steps.tools(current_steps, current_ingredients)
+    user_input = commandLinePrompt(current_steps, current_ingredients)
   elif user_input == 2:
-    Steps.methods()
-    user_input = commandLinePrompt()
+    Steps.methods(current_steps, current_ingredients)
+    user_input = commandLinePrompt(current_steps, current_ingredients)
   elif user_input == 3:
-    Steps.steps()
-    user_input = commandLinePrompt()
+    Steps.steps(current_steps, current_ingredients)
+    user_input = commandLinePrompt(current_steps, current_ingredients)
   elif user_input == 4:
-    ServingSizeTransform.main()
-    user_input = commandLinePrompt()
+    current_ingredients = ServingSizeTransform.main(current_ingredients)
+    user_input = commandLinePrompt(current_steps, current_ingredients)
 
   # Healthier
   elif user_input == 5:
     Transformations.main(3)
-    user_input = commandLinePrompt()
+    user_input = commandLinePrompt(current_steps, current_ingredients)
   # Less Healthy
   elif user_input == 6:
     Transformations.main(4)
-    user_input = commandLinePrompt()
+    user_input = commandLinePrompt(current_steps, current_ingredients)
   # Vegetarian
   elif user_input == 7:
-    Transformations.main(1)
-    user_input = commandLinePrompt()
+    current_ingredients = Transformations.main(1, current_steps, current_ingredients)
+    user_input = commandLinePrompt(current_steps, current_ingredients)
   # Non-Vegetarian
   elif user_input == 8:
-    Transformations.main(2)
-    user_input = commandLinePrompt()
+    current_ingredients = Transformations.main(2, current_steps, current_ingredients)
+    user_input = commandLinePrompt(current_steps, current_ingredients)
   elif user_input == 9:
     return
-commandLinePrompt()
+
+commandLinePrompt(current_steps, current_ingredients)

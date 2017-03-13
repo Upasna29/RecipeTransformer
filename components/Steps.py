@@ -12,22 +12,22 @@ utensils = ['pot', 'pan', 'skillet', 'sheet', 'dish', 'oven', 'rice cooker', 'pr
             'bowl', 'grill', 'nutcracker', 'ladle', 'cutter', 'whisk', 'scoop', 'griddle', 'cleaver', 'masher',
             'colander', 'dutch']
 
-def getDirections():
+def getDirections(directions, ingredients_raw):
     '''
     Pulls direction from recipe defined in WebScraper.py and returns a flat list of all "steps",
     delineated by '.' or ';'.
     :return: List of strings where each element is a step/sentence of the directions.
     '''
-    directions_raw = WebScraper.findElementsByClassName("span", "recipe-directions__list--item")
-    len_directs = len(directions_raw)
-    directions_raw = directions_raw[:len_directs - 1]
-    directions = list(map(lambda x: x.getText(), directions_raw))
+    # directions_raw = WebScraper.findElementsByClassName("span", "recipe-directions__list--item")
+    # len_directs = len(directions_raw)
+    # directions_raw = directions_raw[:len_directs - 1]
+    # directions = list(map(lambda x: x.getText(), directions_raw))
 
     nested_directions = [re.split('\.|;', direction) for direction in directions]
     steps = [step.lstrip() for direction in nested_directions for step in direction if step]
 
-    ingredients_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
-    ingredients_raw = list(map(lambda x: x.getText(), ingredients_raw))
+    # ingredients_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
+    # ingredients_raw = list(map(lambda x: x.getText(), ingredients_raw))
     ingredients = []
     for ingredient in ingredients_raw:
         if ingredient == 'Add all ingredients to list':
@@ -96,12 +96,12 @@ def remove_duplicates(seq):
    map(set.__setitem__, seq, [])
    return set.keys()
 
-def tools():
+def tools(directions, ingredients):
     '''
     From command line input, print all tools involved for recipe
     :Output: Tools found in recipe
     '''
-    steps, ingredients = getDirections()
+    steps, ingredients = getDirections(directions, ingredients)
     dict_steps = stat_parse(steps, ingredients)
     tools = []
     for step in dict_steps:
@@ -109,8 +109,8 @@ def tools():
     tools = remove_duplicates(tools)
     print 'Tools: ', ', '.join(tools)
 
-def steps():
-    steps, ingredients = getDirections()
+def steps(directions, ingredients):
+    steps, ingredients = getDirections(directions, ingredients)
     dict_steps = stat_parse(steps, ingredients)
     print dict_steps
     for i, step in enumerate(dict_steps):
@@ -121,12 +121,12 @@ def steps():
 
         print '\n'
 
-def methods():
+def methods(directions, ingredients):
     '''
     From command line input, print all tools involved for recipe
     :Output: Tools found in recipe
     '''
-    steps, ingredients = getDirections()
+    steps, ingredients = getDirections(directions, ingredients)
     dict_steps = stat_parse(steps, ingredients)
     methods = []
     for step in dict_steps:

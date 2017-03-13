@@ -30,7 +30,7 @@ def commandLinePrompt():
 
 def transformServingSize(instructions):
   multiple = commandLinePrompt()
-
+  new_instructions = []
   print 'Original Recipe'
   for instruction in instructions:
     old_step = Ingredients.determineIngredients(instruction)
@@ -62,6 +62,8 @@ def transformServingSize(instructions):
           instruction[i] = '('+str(instruction[i])
 
       print ' '.join(instruction)
+      new_instructions.append(' '.join(instruction))
+  return new_instructions
 
 def str2float(s):
   for letter in s:
@@ -74,10 +76,10 @@ def str2float(s):
     return s
   
 
-def main():
-  instructions_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
-  instructions = list(map(lambda x: x.getText(), instructions_raw))
-  transformServingSize(instructions)
+def main(instructions):
+  # instructions_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
+  # instructions = list(map(lambda x: x.getText(), instructions_raw))
+  return transformServingSize(instructions)
 
 
 

@@ -1,7 +1,7 @@
 import WebScraper
 
-ingredients_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
-ingredients = list(map(lambda x: x.getText(), ingredients_raw))
+# ingredients_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
+# ingredients = list(map(lambda x: x.getText(), ingredients_raw))
 # ingredients = [
 #   u'4 potatoes, peeled and cubed', 
 #   u'2 tablespoons vegetable oil', 
@@ -142,9 +142,9 @@ def parseIngredients(ingredient):
   return ingredient[:(number_index+2)], ingredient[(number_index+2):]
 
 
-def main():
-  instructions_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
-  instructions = list(map(lambda x: x.getText(), instructions_raw))
+def main(instructions):
+  # instructions_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
+  # instructions = list(map(lambda x: x.getText(), instructions_raw))
 
   for instruction in instructions:
     data = determineIngredients(instruction)
