@@ -2,7 +2,7 @@ import Steps, WebScraper, Ingredients
 import random
 
 
-meats = ['chicken', 'pork', 'beef', 'steak', 'turkey', 'ham', 'lamb', 'rabbit', 'duck', 'goose']
+meats = ['chicken', 'pork', 'beef', 'steak', 'turkey', 'ham', 'lamb', 'rabbit', 'duck', 'goose', 'sausage']
 seafood = ['fish', 'tuna', 'salmon']
 shellfish = ['lobster', 'snail', 'scallop', 'crab', 'prawn']
 vegetables = ['tofu', 'mushroom', 'eggplant', 'quinoa', 'soy']
@@ -10,7 +10,7 @@ liquidDairy = ['almond milk', 'soy milk', 'coconut milk']
 solidDairy = ['nutritional yeast', 'tofu', 'dairy free cheese']
 
 
-meatSubstitutes = {"chicken": vegetables, "pork": vegetables, "beef": vegetables, "steak": vegetables, "turkey": vegetables, "ham": vegetables, "lamb": vegetables, "rabbit": vegetables, "duck": vegetables, "goose": vegetables}
+meatSubstitutes = {"chicken": vegetables, "pork": vegetables, "beef": vegetables, "steak": vegetables, "turkey": vegetables, "ham": vegetables, "lamb": vegetables, "rabbit": vegetables, "duck": vegetables, "goose": vegetables, "sausage":vegetables}
 
 vegSubstitutes = {"tofu": meats, "mushroom": meats, "eggplant": meats, "quinoa": meats, "soy": meats}
 
@@ -141,7 +141,7 @@ def main(i, steps, instructions):
     # instructions = list(map(lambda x: x.getText(), instructions_raw))
     # print steps
     dummy, ingredients = Steps.getDirections(steps, instructions)
-    ingredientSubs = findIngredientSubstitution(ingredients, i) 
+    ingredientSubs = findIngredientSubstitution(ingredients, i)
     new_steps = makeSubstitutions(steps, ingredientSubs)
     new_recipe = makeSubstitutionInInstructions(instructions, ingredientSubs)
 
