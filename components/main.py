@@ -8,7 +8,7 @@ directions_raw = directions_raw[:len_directs - 1]
 current_ingredients = list(map(lambda x: x.getText(), ingredients_raw))
 current_steps = list(map(lambda x: x.getText(), directions_raw))
 
-print current_ingredients
+# print current_ingredients
 def commandLineIntro(current_steps, current_ingredients):
   user_input = raw_input(
     "Welcome to our wonderful recipe transformation program! What would you like to do? \n \n" +
@@ -55,19 +55,19 @@ def commandLinePrompt(current_steps, current_ingredients):
 
   # Healthier
   elif user_input == 5:
-    Transformations.main(3)
+    current_ingredients, current_steps = Transformations.main(3, current_steps, current_ingredients)
     user_input = commandLinePrompt(current_steps, current_ingredients)
   # Less Healthy
   elif user_input == 6:
-    Transformations.main(4)
+    current_ingredients, current_steps = Transformations.main(4, current_steps, current_ingredients)
     user_input = commandLinePrompt(current_steps, current_ingredients)
   # Vegetarian
   elif user_input == 7:
-    current_ingredients = Transformations.main(1, current_steps, current_ingredients)
+    current_ingredients, current_steps = Transformations.main(1, current_steps, current_ingredients)
     user_input = commandLinePrompt(current_steps, current_ingredients)
   # Non-Vegetarian
   elif user_input == 8:
-    current_ingredients = Transformations.main(2, current_steps, current_ingredients)
+    current_ingredients, current_steps = Transformations.main(2, current_steps, current_ingredients)
     user_input = commandLinePrompt(current_steps, current_ingredients)
   elif user_input == 9:
     return

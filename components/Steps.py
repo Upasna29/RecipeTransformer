@@ -112,7 +112,6 @@ def tools(directions, ingredients):
 def steps(directions, ingredients):
     steps, ingredients = getDirections(directions, ingredients)
     dict_steps = stat_parse(steps, ingredients)
-    print dict_steps
     for i, step in enumerate(dict_steps):
         print 'Step ', str(i)
         for component in step:

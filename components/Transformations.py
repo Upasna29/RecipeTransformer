@@ -70,7 +70,7 @@ def findIngredientSubstitution(ingredients, num):
                     break
 
         # 3: To healthy
-        if num == 3:
+        if num == 4:
             for word in temp:
                 if word in unhealthySubstitutes:
                     idx = random.randint(0, len(unhealthySubstitutes[word])-1)
@@ -80,7 +80,7 @@ def findIngredientSubstitution(ingredients, num):
                     break
 
         # 4: To unhealthy
-        if num == 4:
+        if num == 3:
             for word in temp:
                 if word in healthySubstitutes:
                     idx = random.randint(0, len(healthySubstitutes[word])-1)
@@ -103,14 +103,14 @@ def findIngredientSubstitution(ingredients, num):
 #
 #     print steps
 def makeSubstitutions(steps, ingredientSubs):
+    new_steps = []
     for i, step in enumerate(steps):
         for ingredient in ingredientSubs:
             if ingredient in step:
                 step = step.replace(ingredient, ingredientSubs[ingredient])
-        steps[i] = step
+        new_steps.append(step)
 
-    print steps
-    return steps
+    return new_steps
 
 def makeSubstitutionInInstructions(instructions, ingredientSubs):
     new_instructions = []
@@ -139,14 +139,15 @@ def makeSubstitutionInInstructions(instructions, ingredientSubs):
 def main(i, steps, instructions):
     # instructions_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
     # instructions = list(map(lambda x: x.getText(), instructions_raw))
-    steps, ingredients = Steps.getDirections(steps, instructions)
+    # print steps
+    dummy, ingredients = Steps.getDirections(steps, instructions)
     ingredientSubs = findIngredientSubstitution(ingredients, i) 
     new_steps = makeSubstitutions(steps, ingredientSubs)
     new_recipe = makeSubstitutionInInstructions(instructions, ingredientSubs)
 
     print 'Original Recipe'
     new_instructions = []
-
+    new_directions = []
     for instruction in instructions:
         old_step = Ingredients.determineIngredients(instruction)
 
@@ -171,9 +172,10 @@ def main(i, steps, instructions):
         else:
             print old_step['original']
             new_instructions.append(old_step['original'])
-    return new_instructions
 
     print '\nDirections: '
     for i, step in enumerate(new_steps):
         if step:
             print str(i+1)+'. ', step
+
+    return new_instructions, new_steps
