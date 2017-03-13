@@ -7,7 +7,7 @@ seafood = ['fish', 'tuna', 'salmon']
 shellfish = ['lobster', 'snail', 'scallop', 'crab', 'prawn']
 vegetables = ['tofu', 'mushroom', 'eggplant', 'quinoa', 'soy']
 liquidDairy = ['almond milk', 'soy milk', 'coconut milk']
-solidDairy = ['nutritional yeast', 'tofu', 'dairy free cheese']
+solidDairy = ['nutritional yeast', 'dairy free cheese']
 
 
 meatSubstitutes = {"chicken": vegetables, "pork": vegetables, "beef": vegetables, "steak": vegetables, "turkey": vegetables, "ham": vegetables, "lamb": vegetables, "rabbit": vegetables, "duck": vegetables, "goose": vegetables, "sausage":vegetables}
