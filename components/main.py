@@ -1,6 +1,6 @@
 import Ingredients, ServingSizeTransform, Steps, Transformations, WebScraper
-url = 'http://allrecipes.com/recipe/19291/sausage-pasta'
-# url = 'http://allrecipes.com/recipe/223042/chicken-parmesan/'
+# url = 'http://allrecipes.com/recipe/19291/sausage-pasta'
+url = 'http://allrecipes.com/recipe/173988/sloppy-tofu/'
 
 ingredients_raw = WebScraper.findElementsByClassName(url, "span", "recipe-ingred_txt")
 directions_raw = WebScraper.findElementsByClassName(url, "span", "recipe-directions__list--item")

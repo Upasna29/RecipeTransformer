@@ -153,4 +153,4 @@ def main(instructions):
       print 'Name: ' + data['name']
       print 'Quantity: ' + data['quantity']
       print 'Measurment: ' + data['measurement'] if data['measurement'] else 'Measurment: Error parsing measurement data'
-      print 'Preperation: ' + data['preperation'] + '\n' if data['preperation'] else 'Preperation: No preperation data \n'
+      print 'Preparation: ' + data['preperation'] + '\n' if data['preperation'] else 'Preparation: No preparation data \n'
