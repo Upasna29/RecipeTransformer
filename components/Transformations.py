@@ -9,16 +9,18 @@ vegetables = ['tofu', 'mushroom', 'eggplant', 'quinoa', 'soy']
 liquidDairy = ['almond milk', 'soy milk', 'coconut milk']
 solidDairy = ['nutritional yeast', 'tofu', 'dairy free cheese']
 
+
 meatSubstitutes = {"chicken": vegetables, "pork": vegetables, "beef": vegetables, "steak": vegetables, "turkey": vegetables, "ham": vegetables, "lamb": vegetables, "rabbit": vegetables, "duck": vegetables, "goose": vegetables}
+
 vegSubstitutes = {"tofu": meats, "mushroom": meats, "eggplant": meats, "quinoa": meats, "soy": meats}
 
 # TODO
 # dairySubstitutes     we need dairy substitutes
 dairySubstitutes = {"milk": liquidDairy, "cheese": solidDairy, "cream": liquidDairy, "yogurt": liquidDairy}
 # healthySubstitutes    we need healthy substitutes
-healthySubstitutes = {}
+healthySubstitutes = {'sugar': ['brown sugar', 'honey', 'cinnamon', 'vanilla'], 'corn': ['flour'], 'butter': ['unsweetened apple sauce', 'olive oil', 'mashed banana'], 'pasta': ['whole-wheat pasta', 'zucchini pasta'], 'milk': ['fat free milk', 'almond milk', 'soy milk'], 'pickles': ['cucumbers'], 'olives': ['cherry tomatoes'], 'mayonnaise':['reduced fat spreads'], 'jelly': ['mashed fresh berries'] }
 # unhealthySubstitues    healthy to unhealthy?
-unhealthySubstitues = {}
+unhealthySubstitutes = {'olive oil': ['butter'], 'whole-wheat pasta': ['pasta'], 'unsweetened apple sauce': ['butter'], 'flour': ['corn'], 'vanilla': ['sugar'], 'zucchini pasta': ['pasta'], 'almond milk': ['milk'], 'cucumbers': ['pickles'], 'honey': ['sugar'], 'cherry tomatoes': ['olives'], 'cinnamon': ['sugar'], 'fat free milk': ['milk'], 'mashed fresh berries': ['jelly'], 'reduced fat spreads': ['mayonnaise'], 'soy milk': ['milk'], 'mashed banana': ['butter'], 'brown sugar': ['sugar']}
 
 # ingredients = Steps.getListIngredients()
 
@@ -108,6 +110,7 @@ def makeSubstitutions(steps, ingredientSubs):
         steps[i] = step
 
     print steps
+    return steps
 
 def makeSubstitutionInInstructions(instructions, ingredientSubs):
     new_instructions = []
@@ -132,15 +135,18 @@ def makeSubstitutionInInstructions(instructions, ingredientSubs):
 # print ingredientSubs
 # makeSubstitutionInInstructions(steps, ingredientSubs)
 
+
 def main(i, steps, instructions):
     # instructions_raw = WebScraper.findElementsByClassName("span", "recipe-ingred_txt")
     # instructions = list(map(lambda x: x.getText(), instructions_raw))
     steps, ingredients = Steps.getDirections(steps, instructions)
     ingredientSubs = findIngredientSubstitution(ingredients, i) 
+    new_steps = makeSubstitutions(steps, ingredientSubs)
     new_recipe = makeSubstitutionInInstructions(instructions, ingredientSubs)
 
     print 'Original Recipe'
     new_instructions = []
+
     for instruction in instructions:
         old_step = Ingredients.determineIngredients(instruction)
 
@@ -150,7 +156,13 @@ def main(i, steps, instructions):
         else:
             print old_step['original']
 
+    print '\nDirections: '
+    for i, step in enumerate(steps):
+        if step:
+            print str(i+1)+'. ', step
+
     print '\nNew Recipe'
+    print '\nIngredients: '
     for instruction in new_recipe:
         old_step = Ingredients.determineIngredients(instruction)
 
@@ -161,4 +173,7 @@ def main(i, steps, instructions):
             new_instructions.append(old_step['original'])
     return new_instructions
 
-
+    print '\nDirections: '
+    for i, step in enumerate(new_steps):
+        if step:
+            print str(i+1)+'. ', step
